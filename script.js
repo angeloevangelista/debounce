@@ -20,11 +20,40 @@ const debounceEvent = (fn, wait = 1000, timeout) => (...args) => {
   clearTimeout(timeout, (timeout = setTimeout(() => fn(...args), wait)));
 };
 
-const handleKeyUp = (event) =>
-  searchUsers(event.target.value).then((users) =>
-    renderUsers(users.map((u) => u.name)),
-  );
+function setLoading(isLoading) {
+  if (isLoading) {
+    const listHeader = document.querySelector(
+      'div.list-container > .list-header',
+    );
+
+    const loadingElement = document.createElement('i');
+    loadingElement.dataset.feather = 'loader';
+
+    listHeader.append(loadingElement);
+    feather ? feather.replace() : null;
+  } else {
+    const listHeader = document.querySelector(
+      'div.list-container > .list-header',
+    );
+
+    const loadingElement = listHeader.querySelector('svg');
+
+    listHeader.removeChild(loadingElement);
+  }
+}
+
+const handleKeyUp = async (event) => {
+  if (!event.target.value || event.target.value.trim() === 0) return;
+
+  setLoading(true);
+
+  const users = await searchUsers(event.target.value);
+
+  renderUsers(users.map((user) => user.name));
+
+  setLoading(false);
+};
 
 document
   .querySelector('input[name="search"]')
-  .addEventListener('keyup', debounceEvent(handleKeyUp, 1000));
+  .addEventListener('keyup', debounceEvent(handleKeyUp, 700));
