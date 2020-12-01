@@ -13,14 +13,22 @@
     <script src="https://unpkg.com/feather-icons"></script>
   </head>
   <body>
-    <form>
-      <strong>What are you looking for?</strong>
+    <div class="container">
+      <form>
+        <strong>What are you looking for?</strong>
 
-      <div class="input-container">
-        <input type="text" name="search" />
-        <i data-feather="search"></i>
+        <div class="input-container">
+          <input type="text" name="search" />
+          <i data-feather="search"></i>
+        </div>
+      </form>
+
+      <div class="list-container">
+        <strong>Found users</strong>
+
+        <ul id="user-list"></ul>
       </div>
-    </form>
+    </div>
 
     <script>
       feather ? feather.replace() : null;
