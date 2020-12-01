@@ -3,13 +3,9 @@ const searchUsers = (name) =>
     `http://jsonplaceholder.typicode.com/users?name_like=${name}`,
   ).then((response) => response.json());
 
-function debounceEvent(fn, wait = 1000, timeout) {
-  return function () {
-    clearTimeout(timeout);
-
-    timeout = setTimeout(() => fn.apply(this, arguments), wait);
-  };
-}
+const debounceEvent = (fn, wait = 1000, timeout) => (...args) => {
+  clearTimeout(timeout, (timeout = setTimeout(() => fn(...args), wait)));
+};
 
 const handleKeyUp = (event) =>
   searchUsers(event.target.value).then((users) =>
