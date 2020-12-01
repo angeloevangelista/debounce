@@ -16,12 +16,15 @@
     <form>
       <strong>What are you looking for?</strong>
 
-      <div class="input">
+      <div class="input-container">
         <input type="text" name="search" />
         <i data-feather="search"></i>
       </div>
     </form>
 
+    <script>
+      feather ? feather.replace() : null;
+    </script>
     <script src="./script.js"></script>
   </body>
 </html>
